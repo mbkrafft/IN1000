@@ -2,10 +2,14 @@
 
 
 from spillebrett import Spillebrett
+import os
 
 
 def main():
-    while True:
+
+    svar = ""
+
+    while svar != "q":
 
         # Ber bruker om rader og kolonner helt til riktig input
         try:
@@ -27,7 +31,7 @@ def main():
     spillebrett.tegnBrett()
 
     # Kjorer helt til bruker ber om avslutte.
-    while True:
+    while svar != "q":
 
         svar = input("Trykk 'ENTER' for aa forsette eller 'q' for aa avslutte: ")
 
@@ -35,6 +39,7 @@ def main():
             break
         elif svar == "":
             spillebrett.oppdatering()
+            os.system('cls' if os.name == "nt" else 'clear')
             spillebrett.tegnBrett()
         else:
             print("Trykk enten 'ENTER' eller 'q'.")
