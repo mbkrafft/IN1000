@@ -2,13 +2,17 @@ from cluster import Cluster
 from node import Node
 
 
-abel = Cluster(12)
+abel = Cluster('regneklynge.txt')
 
-for i in range(650):
-    abel.insertNode(Node(64, 1))
 
-for i in range(16):
-    abel.insertNode(Node(1024, 2))
+# For implementasjon som ikke leser av filnavn
+
+# abel = Cluster(12)
+# for i in range(650):
+#     abel.insertNode(Node(64, 1))
+#
+# for i in range(16):
+#     abel.insertNode(Node(1024, 2))
 
 
 print(f'Noder med minst 32 GB minne: {abel.necessaryNodeMemoy(32)}')

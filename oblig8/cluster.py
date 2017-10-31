@@ -1,23 +1,54 @@
 from rack import Rack
+from node import Node
 
 
 class Cluster:
+
     # Oppretter tom regneklynge for racks med oppgitt maxtall noder/ rack
     # @param noderPerRack max antall noder som kan plasseres i et rack
-    def __init__(self, nodesPerRack):
-        self.nodesPerRack = nodesPerRack
-        self.rackList = [Rack(self.nodesPerRack)]
+    # def __init__(self, nodesPerRack):
+    #     self.nodesPerRack = nodesPerRack
+    #     self.rackList = [Rack(self.nodesPerRack)]
 
     # Alternativ konstruktor for de som loser oppgave d). Kan ellers ignoreres
     # Leser data om regneklynge fra fil, bygger datastrukturen.
     # @param filnavn filene der dataene for regneklyngen ligger
-#	def __init__(self, filnavn):
-#		pass
+    def __init__(self, filnavn):
+        self.filnavn = filnavn
+        self.nodesPerRack = 0
+        self.rackList = [Rack(self.nodesPerRack)]
+
+        self.lesFil()
+
+    # Leser inn de ulike parameterne fra konstruktorfilen.
+    def lesFil(self):
+        parameter = []
+
+        f = open(self.filnavn, 'r')
+        for lines in f:
+            parameter.append(lines)
+        f.close()
+
+        self.nodesPerRack = int(parameter[0])
+
+        if len(parameter) < 2:
+            raise IOError
+
+        for nodeType in range(1, len(parameter)):
+
+            parameter[nodeType] = parameter[nodeType].split(' ')
+
+            for i in range(int(parameter[nodeType][0])):
+                self.insertNode(Node(
+                    int(parameter[nodeType][1]),
+                    int(parameter[nodeType][2]))
+                )
 
     # Plasserer en node inn i et rack med ledig plass, eller i et nytt
     # @param node referanse til noden som skal settes inn i datastrukturen
     def insertNode(self, node):
-        if self.rackList[-1].getNodeNumber() >= self.rackList[-1].totalNumberOfNodes:
+        if (self.rackList[-1].getNodeNumber() >=
+                self.rackList[-1].totalNumberOfNodes):
             self.rackList.append(Rack(self.nodesPerRack))
             self.rackList[-1].insertNode(node)
         else:
