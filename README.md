@@ -1,3 +1,3 @@
 # IN1000
 
-Svar på obligatoriske innleveringer og trixløsninger
+Notater og svar på trixløsninger til IN1000
